@@ -3,7 +3,6 @@
 #include <array>
 #include <vector>
 #include "parameters.h"
-#include "utilities.h"
 
 // defining the discrete lattice namespace
 namespace LBM
@@ -40,26 +39,25 @@ namespace LBM
         1.0/36.0
     };
 
-    // initialize the entire lattice
-    void initialize(
-        std::vector<Cell>& f,
-        const Parameters& params)
+    // initialize the equillibrium distribution function
+    inline double equilibrium (
+        int direction,
+        double rho,
+        double ux,
+        double uy)
     {
-        const int totalCells = params.nx * params.ny;
+        const double cu = 
+            cx[direction] * ux +
+            cy[direction] * uy;
 
-        f.resize(totalCells);
-
-        for (int y = 0; y < params.ny; ++y)
-        {
-            for (int x = 0; x < params.nx; ++x)
-            {
-                const int n = index(x, y, params.nx);
-
-                for (int k = 0; k < Q; ++k)
-                {
-                    f[n][k] = equilibrium(k, 1.0, 0.0, 0.0);
-                }
-            }
-        }
+        const double uSquared =
+            ux * ux + uy * uy;
+        
+        return weights[direction] * rho *
+            (
+                1.0 + 3.0 * cu +
+                4.5 * cu * cu
+                - 1.5 * uSquared
+            );
     }
 }
