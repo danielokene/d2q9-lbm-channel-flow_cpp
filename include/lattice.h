@@ -7,7 +7,7 @@ namespace LBM
 {
     constexpr int Q = 9; // number of directions
 
-    using cell = std::array<double, Q>; // stores probability function of every lattice nodes
+    using cell = std::array<double, Q>; // stores probability function of each lattice nodes
 
     constexpr std::array<int, Q> cx =
     {
