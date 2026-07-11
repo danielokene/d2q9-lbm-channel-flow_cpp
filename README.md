@@ -107,7 +107,7 @@ Simulation outputs are written as CSV files and can be visualized using the acco
 ```text
 src/            C++ source files
 include/        Header files
-scripts/        Python visualization scripts
+script/        Python visualization scripts
 docs/           Numerical methods and documentation
 results/        Simulation outputs and figures
 ```
