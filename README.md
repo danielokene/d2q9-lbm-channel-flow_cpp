@@ -105,11 +105,37 @@ Simulation outputs are written as CSV files and can be visualized using the acco
 # Repository Structure
 
 ```text
-src/            C++ source files
-include/        Header files
-script/        Python visualization scripts
-docs/           Numerical methods and documentation
-results/        Simulation outputs and figures
+lbm-d2q9-channel/
+│
+├── include/
+│   ├── lattice.hpp          // D2Q9 lattice definitions
+│   ├── parameters.hpp       // Simulation parameters
+│   ├── utilities.hpp        // General helper functions
+│   ├── initialization.hpp   // Initialize the simulation
+│   ├── collision.hpp        // Macroscopic variables + BGK collision
+│   ├── streaming.hpp        // Streaming step
+│   ├── boundary.hpp         // Boundary conditions
+│   └── output.hpp           // Saving simulation results
+│
+├── src/
+│   ├── main.cpp
+│   ├── initialization.cpp
+│   ├── collision.cpp
+│   ├── streaming.cpp
+│   ├── boundary.cpp
+│   └── output.cpp
+│
+├── python/
+│   └── plot_results.py
+│
+├── docs/
+│   └── METHODOLOGY.md
+│
+├── results/
+│
+├── CMakeLists.txt
+├── README.md
+└── .gitignore
 ```
 
 ---
