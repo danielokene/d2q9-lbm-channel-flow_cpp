@@ -5,7 +5,7 @@ namespace LBM
 {
     void initializeDistributionFunction(
         std::vector<Cell>& f,
-        const Parameters params)
+        const Parameters& params)
     {
         const int totalCells = params.nx * params.ny;
 

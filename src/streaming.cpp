@@ -43,7 +43,7 @@ void stream(
                 // Pull streaming implementation
 
                 const int source = index(sourceX, sourceY, params.nx);
-                fNext[source][k] = fPostCollision[current][k];
+                fNext[current][k] = fPostCollision[source][k];
             }
         }
     }
