@@ -23,17 +23,17 @@ void stream(
 
             for (int k = 0; k < Q; ++k)
             {
-                const int newX = x + cx[k];
+                int newX = x + cx[k];
                 const int newY = y + cy[k];
 
-                // Skip destinations outside the domain.
-                // Boundary conditions will handle these later.
-                if (newX < 0 || newX >= params.nx ||
-                    newY < 0 || newY >= params.ny)
-                {
-                    continue;
-                }
+                // applying perodic boundary conditon for streaming distributon function
+                if (newX < 0)
+                    newX = params.nx - 1;
 
+                if (newX >= params.nx)
+                    newX = 0;
+
+                
                 const int destination = index(newX, newY, params.nx);
 
                 // Push streaming implementation
