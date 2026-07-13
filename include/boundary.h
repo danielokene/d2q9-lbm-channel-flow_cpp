@@ -1,13 +1,13 @@
-#pragma once
+// #pragma once
 
-#include <vector>
+// #include <vector>
 
-#include "lattice.h"
-#include "parameters.h"
+// #include "lattice.h"
+// #include "parameters.h"
 
-namespace LBM
-{
-    void applyBounceBack(
-        std::vector<Cell>& f,
-        const Parameters& params);
-}
+// namespace LBM
+// {
+//     void applyBounceBack(
+//         std::vector<Cell>& f,
+//         const Parameters& params);
+// }

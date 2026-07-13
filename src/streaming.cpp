@@ -23,21 +23,27 @@ void stream(
 
             for (int k = 0; k < Q; ++k)
             {
-                int newX = x + cx[k];
-                const int newY = y + cy[k];
+                int sourceX = x - cx[k];
+                int sourceY = y - cy[k];
 
                 // applying perodic boundary conditon for streaming distributon function
-                if (newX < 0)
-                    newX = params.nx - 1;
+                if (sourceX < 0)
+                    sourceX = params.nx - 1;
 
-                if (newX >= params.nx)
-                    newX = 0;
+                if (sourceX >= params.nx)
+                    sourceX = 0;
 
+                // top/bottom bounce-back boundary condition
+                if (sourceY < 0 || sourceY >= params.ny)
+                {
+                    fNext[current][k] = fPostCollision[current][opposite[k]];
+                    continue;
+                }
                 
-                const int destination = index(newX, newY, params.nx);
+                // Pull streaming implementation
 
-                // Push streaming implementation
-                fNext[destination][k] = fPostCollision[current][k];
+                const int source = index(sourceX, sourceY, params.nx);
+                fNext[source][k] = fPostCollision[current][k];
             }
         }
     }
