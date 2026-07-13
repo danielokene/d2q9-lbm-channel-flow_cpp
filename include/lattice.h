@@ -60,4 +60,17 @@ namespace LBM
                 - 1.5 * uSquared
             );
     }
+
+    // Guo forcing scheme implementation
+    inline double forcingTerm(
+    int direction,
+    double omega,
+    double forceX)
+    {
+        return weights[direction]
+            * (1.0 - 0.5 * omega)
+            * 3.0
+            * cx[direction]
+            * forceX;
+    }
 }

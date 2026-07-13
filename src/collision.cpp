@@ -69,7 +69,11 @@ namespace LBM
 
                     fPostCollision[n][k] =
                         f[n][k] - omega *
-                        (f[n][k] - feq); // relax towards equillibrium and store result (implementing teh BGK method)
+                        (f[n][k] - feq)
+                        + 
+                        forcingTerm(
+                            k, omega, params.forceX
+                        ); // relax towards equillibrium and store result (implementing the BGK-Guo Forcing method)
                 }
             }
         }
