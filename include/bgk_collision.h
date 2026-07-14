@@ -7,13 +7,6 @@
 
 namespace LBM
 {
-    void computeMacroscopic(
-        const std::vector<Cell>& f,
-        std::vector<double>& rho,
-        std::vector<double>& ux,
-        std::vector<double>& uy,
-        const Parameters& params);
-
     void collide(
         const std::vector<Cell>& f, // current distribution function
         std::vector<Cell>& fPostCollision, // distribution function after collision

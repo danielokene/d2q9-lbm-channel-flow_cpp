@@ -5,7 +5,8 @@
 #include "../include/lattice.h"
 #include "../include/parameters.h"
 #include "../include/initialization.h"
-#include "../include/collision.h"
+#include "../include/bgk_collision.h"
+#include "../include/macroscopic.h"
 #include "../include/streaming.h"
 
 int main()
