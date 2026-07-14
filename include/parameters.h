@@ -11,6 +11,7 @@ namespace LBM
         int saveInterval = 200; // to save data after every 200 timestep
         int outputInterval = 1000; // to output data after every 1000 steps
 
+        double convergenceTolerance = 1e-9; // convergence tolerance
         double tau = 0.8; // relaxation time
         double forceX = 1e-6; // body force (to show pressure difference)
     };

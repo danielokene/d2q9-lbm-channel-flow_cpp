@@ -2,8 +2,11 @@
 #include "../include/utilities.h"
 
 #include <fstream>
+#include <filesystem>
 #include <iomanip>
 #include <cmath>
+
+namespace fs = std::filesystem;
 
 namespace LBM
 {
@@ -14,6 +17,8 @@ namespace LBM
         const std::vector<double>& uy,
         const Parameters& params)
     {
+        // Create results directory if it doesn't exist
+        fs::create_directories("results");
         std::ofstream file(filename);
 
         if (!file.is_open())
@@ -45,4 +50,34 @@ namespace LBM
             }
         }
     }
+
+    void appendResidual(
+    const std::string& filename,
+    int iteration,
+    double residual)
+    {
+        // Create results directory if it doesn't exist
+        fs::create_directories("results");
+
+        bool fileExists = fs::exists(filename);
+
+        std::ofstream file(filename, std::ios::app);
+
+        if (!file)
+        {
+            return;
+        }
+
+        // Write header only once
+        if (!fileExists)
+        {
+            file << "Iteration,Residual\n";
+        }
+
+        file << iteration
+            << ","
+            << residual
+            << "\n";
+    }
+
 }

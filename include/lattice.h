@@ -65,12 +65,23 @@ namespace LBM
     inline double forcingTerm(
     int direction,
     double omega,
+    double ux,
+    double uy,
     double forceX)
     {
+        const double ciDotU =
+        cx[direction] * ux +
+        cy[direction] * uy;
+
+        const double forceDotCi =
+        cx[direction] * forceX;
+
         return weights[direction]
             * (1.0 - 0.5 * omega)
-            * 3.0
-            * cx[direction]
-            * forceX;
+            * (
+                3.0 * forceDotCi
+                + 9.0 * ciDotU * forceDotCi
+                - 3.0 * ux * forceX
+        );
     }
 }

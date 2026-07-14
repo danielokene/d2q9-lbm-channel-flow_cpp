@@ -34,22 +34,27 @@ Unlike traditional CFD solvers, the algorithm does **not** solve the Navier–St
 
 ---
 
-# Example Result
-
-The figure below shows the fully developed velocity profile obtained from the LBM simulation.
-
-
----
-
-# Validation
-
-The solver is validated using the analytical solution for fully developed laminar Poiseuille flow.
+# Result and Validation
 
 The primary comparison includes:
 
+---
 * Streamwise velocity profile, **u(y)**, along the channel centreline
 * Analytical parabolic velocity profile
+
+<p align="center">
+<img src="results/velocity_profile.png" width="500">
+</p>
+
+---
+
 * Convergence history of the numerical solution
+
+<p align="center">
+<img src="results/residual_history.png" width="500">
+</p>
+
+---
 
 Future versions of this repository will report:
 
@@ -89,13 +94,8 @@ mkdir build
 cd build
 cmake ..
 make
-./lbm_channel
-```
-
-or with custom simulation parameters:
-
-```bash
-./lbm_channel 160 50 20000 0.8 1e-6 200
+cd ..
+./d2q9_lbm
 ```
 
 Simulation outputs are written as CSV files and can be visualized using the accompanying Python plotting scripts.
@@ -116,6 +116,7 @@ lbm-d2q9-channel/
 │   ├── bgk_collision.h       // BGK collision
 │   ├── streaming.h           // Streaming step
 │   ├── boundary.h            // Boundary conditions
+│   ├── convergence.h         // convergence header file
 │   └── output.h              // Saving simulation results
 │
 ├── src/
@@ -125,10 +126,12 @@ lbm-d2q9-channel/
 │   ├── macroscopic.cpp
 │   ├── streaming.cpp
 │   ├── boundary.cpp
+│   ├── convergence.cpp
 │   └── output.cpp
 │
-├── python/
-│   └── plot_results.py
+├── scripts/
+│   ├── plot_residual.py
+│   └── plot_validation.py
 │
 ├── docs/
 │   └── METHODOLOGY.md

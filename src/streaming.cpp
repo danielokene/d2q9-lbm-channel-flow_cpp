@@ -39,7 +39,6 @@ namespace LBM
                     }
                     
                     // Pull streaming implementation
-
                     const int source = index(sourceX, sourceY, params.nx);
                     fNext[current][k] = fPostCollision[source][k];
                 }

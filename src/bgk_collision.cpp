@@ -30,7 +30,7 @@ namespace LBM
                         (f[n][k] - feq)
                         + 
                         forcingTerm(
-                            k, omega, params.forceX
+                            k, omega, ux[n], uy[n], params.forceX
                         ); // relax towards equillibrium and store result (implementing the BGK-Guo Forcing method)
                 }
             }

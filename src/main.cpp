@@ -9,6 +9,8 @@
 #include "../include/macroscopic.h"
 #include "../include/streaming.h"
 #include "../include/output.h"
+#include "../include/convergence.h"
+
 
 
 int main()
@@ -23,12 +25,15 @@ int main()
     std::vector<double> rho;
     std::vector<double> ux;
     std::vector<double> uy;
+    std::vector<double> uxPrevious; // used for convergence check
 
     // Initialise
     LBM::initializeDistributionFunction(f, params);
 
+    uxPrevious.resize(params.nx * params.ny, 0.0);
+
     // Time integration
-    for (int step = 0; step < params.steps; ++step)
+    for (int step = 0; step <= params.steps; ++step)
     {
         LBM::computeMacroscopic(f, rho, ux, uy, params);
         LBM::collide(f, fPostCollision, rho, ux, uy, params);
@@ -36,27 +41,42 @@ int main()
 
         std::swap(f, fNext);
 
-        // writing results to file after every 200 iterations
-        if (step % params.saveInterval == 0)
+        // computing residual value and saving to file
+        double residual = LBM::computeResidual(uxPrevious, ux);
+        if (step % 100 == 0)
         {
-            // computing macroscopic variables again to ensure saved data
-            // matches the newly updated dstribution functions after streaming
-            LBM::computeMacroscopic(f, rho, ux, uy, params);
-            
-            LBM::writeCSV(
-                "../results/channel_" + std::to_string(step) + ".csv",
-                rho,
-                ux,
-                uy,
-                params);
+            LBM::appendResidual("results/residual.csv", step, residual);
+        }
+        uxPrevious = ux;
+        
+        // checking for convergence
+        if (residual < params.convergenceTolerance)
+        {
+            std::cout
+                << "\nConverged after "
+                << step
+                << " iterations.\n";
+
+            break;
         }
 
+        // Solver output after every 1000 iterations
         if (step % params.outputInterval == 0)
         {
-            std::cout << "Iteration " << step 
-                << " / "
-                << params.steps
-                << '\n';
+            std::cout
+            << "Iteration "
+            << step
+            << " / "
+            << params.steps
+            << "   Residual = "
+            << residual
+            << '\n';
         }
     }
+    // computing macroscopic variables again to ensure saved data
+    // matches the newly updated dstribution functions after streaming
+    LBM::computeMacroscopic(f, rho, ux, uy, params);
+
+    // writing results to file after every 200 iterations
+    LBM::writeCSV("results/channel_final.csv", rho, ux, uy, params);
 }

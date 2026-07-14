@@ -13,4 +13,9 @@ namespace LBM
         const std::vector<double>& ux,
         const std::vector<double>& uy,
         const Parameters& params);
+    
+    void appendResidual(
+        const std::string& filename,
+        int iteration,
+        double residual);
 }
