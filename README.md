@@ -108,19 +108,21 @@ Simulation outputs are written as CSV files and can be visualized using the acco
 lbm-d2q9-channel/
 │
 ├── include/
-│   ├── lattice.hpp          // D2Q9 lattice definitions
-│   ├── parameters.hpp       // Simulation parameters
-│   ├── utilities.hpp        // General helper functions
-│   ├── initialization.hpp   // Initialize the simulation
-│   ├── collision.hpp        // Macroscopic variables + BGK collision
-│   ├── streaming.hpp        // Streaming step
-│   ├── boundary.hpp         // Boundary conditions
-│   └── output.hpp           // Saving simulation results
+│   ├── lattice.h             // D2Q9 lattice definitions
+│   ├── parameters.h          // Simulation parameters
+│   ├── utilities.h           // General helper functions
+│   ├── initialization.h      // Initialize the simulation
+│   ├── macroscopic.h         // Macroscopic variables
+│   ├── bgk_collision.h       // BGK collision
+│   ├── streaming.h           // Streaming step
+│   ├── boundary.h            // Boundary conditions
+│   └── output.h              // Saving simulation results
 │
 ├── src/
 │   ├── main.cpp
 │   ├── initialization.cpp
-│   ├── collision.cpp
+│   ├── bgk_collision.cpp
+│   ├── macroscopic.cpp
 │   ├── streaming.cpp
 │   ├── boundary.cpp
 │   └── output.cpp
